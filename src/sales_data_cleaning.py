@@ -1,3 +1,7 @@
+import pandas as pd
+import numpy as np
+import datetime
+
 def clean_up_dataframe(df):
     '''
     Function to clean up dataframe from csv
@@ -9,8 +13,26 @@ def clean_up_dataframe(df):
     df.rename(columns=lambda x: x.replace(' ', '_').lower(), inplace=True)
     df['dob'] = pd.to_datetime(df['dob']).dt.date
     df.rename(columns={'dob':'date'}, inplace=True)
-    df.drop(columns=['guests', 'checks', 'entrees'])
-    return df
+    df['ordermodename'] = df['ordermodename'].replace({'In Store': 'instore',
+                                                             '(UnSpecified)': 'instore',
+                                                             'Online': 'online',
+                                                             'Online Pick Up': 'online',
+                                                             'Phone In': 'online',
+                                                             'Phone Order': 'online',
+                                                             'Take Out': 'online',
+                                                             'Future': 'online',
+                                                             'FlyBuy': 'third_party',
+                                                             'UberEats': 'third_party',
+                                                             'Uber Eats': 'third_party',
+                                                             'Postmates': 'third_party',
+                                                             'Caviar': 'third_party',
+                                                             'Doordash': 'third_party',
+                                                             'Catering': 'catering',
+                                                             'Wholesale': 'omit_category',
+                                                             '(DS Adjust)': 'omit_category',
+                                                             'Commissary': 'omit_category'})
+    df = df.set_index(pd.DatetimeIndex(df['date']))
+    return df[['locationid', 'locationname','day_of_week', 'ordermodename','net_sales']]
 
 
 def store_filter(df, store=1):
