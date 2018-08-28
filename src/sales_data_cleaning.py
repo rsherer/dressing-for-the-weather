@@ -63,7 +63,7 @@ def store_filter(df, store=1):
     return df[mask]
 
 
-def get_instore_sales_data(df, sales_type=['(UnSpecified)', 'In Store']):
+def get_instore_sales_data_by_type(df, sales_type=['instore']):
     '''
     Function to find in store sales data for a certain type of sales visit
     
@@ -73,15 +73,33 @@ def get_instore_sales_data(df, sales_type=['(UnSpecified)', 'In Store']):
         pandas dateframe converted from csv with Sales, Guests, Checks, Entrees by day
     
     sales_type: list of str
-        must be a list of string(s), to show the type of sale from the store from the following list of choices:
-        ['(UnSpecified)', 'Online', 'Online Pick Up', 'Postmates',
-       'Uber Eats', 'UberEats', 'Catering', 'Caviar', 'Future',
-       'Phone In', 'In Store', 'Phone Order', 'Take Out', 'Doordash']
+        must be a list of string(s), to show the type of sale from the store
+        from the following list of choices:
+        instore = ['In Store', '(UnSpecified)'] 
+        online = ['Online', 'Online Pick Up', 'Phone In', 'Phone Order', 'Take Out', 'Future']
+        third_party = ['FlyBuy', 'UberEats', 'Postmates', 'Caviar','Uber Eats', 'Doordash']
+        catering = ['Catering']
+        omit_category = ['Wholesale', '(DS Adjust)', 'Commissary']
        
     Output: pandas dataframe with type of sales data
     '''
-    return df.loc[df['ordermodename'].isin(sales_type)]
+    df = df.loc[df['ordermodename'].isin(sales_type)]
+    return df[['date', 'day_of_week','ordermodename', 'net_sales']]
 
+
+def get_instore_sales_data_by_day(df):
+    '''
+    Function to find total in store sales data by day.
+    
+    Input Parameters
+    ----------------
+    df: pandas dataframe
+        pandas dateframe converted from csv with Sales, Guests, Checks, Entrees by day
+    
+    Output: pandas dataframe with type of sales data
+    '''
+    df = df.resample('D').sum()
+    return df[['net_sales']]
 
 def date_to_nth_day(date):
     '''
@@ -94,3 +112,27 @@ def date_to_nth_day(date):
     date = pd.to_datetime(date)
     new_year_day = pd.Timestamp(year=date.year, month=1, day=1)
     return (date - new_year_day).days + 1
+
+
+    def assign_sine_vector(day):
+    '''
+    Function will create a sine vector based on the day of the year (d) such that 
+    vector = sin((2 * pi * d) / 365
+    
+    Input: date
+    
+    Output: sine vector
+    '''
+    return math.sin((2 * math.pi * date_to_nth_day(day)) / 365)
+
+
+def assign_cosine_vector(day):
+    '''
+    Function will create a cosine vector based on the day of the year (d) such that 
+    vector = cos((2 * pi * d) / 365
+    
+    Input: date
+    
+    Output: cosine vector
+    '''
+    return math.cos((2 * math.pi * date_to_nth_day(day)) / 365)
