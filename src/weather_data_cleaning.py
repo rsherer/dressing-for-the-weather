@@ -5,7 +5,7 @@ def get_date_and_weather_from_metar(df):
     
     Input: pandas dataframe
     
-    Outpudt: pandas dataframe
+    Output: pandas dataframe
     '''
     mask = raw_data['valid'].apply(lambda x: x[-5:] == '10:53')
     df = raw_data[mask]
