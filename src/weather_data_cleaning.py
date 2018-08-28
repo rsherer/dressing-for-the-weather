@@ -14,9 +14,10 @@ def get_date_and_weather_from_metar(filename):
     raw_data = pd.read_csv(filename)
     mask = raw_data['valid'].apply(lambda x: x[-5:] == '10:53')
     df = raw_data[mask]
-    df.columns = [x.strip().replace(' ', '_').lower() for x in df.columns]
-    df.rename(columns={'valid':'date'}, inplace=True)
-    temp = df['tmpf'].apply(float)
+    df.rename(columns=lambda x: x.replace(' ', '_').lower(), inplace=True)
+    df.rename(columns={'valid':'date', 'tmpf':'temp'}, inplace=True)
+    temp = df['temp'].apply(float)
     date = pd.to_datetime(df['date']).dt.date
     df = pd.concat([date, temp], axis=1)
-    return df
+    df = df.set_index(pd.DatetimeIndex(df['date']))
+    return df['temp']
