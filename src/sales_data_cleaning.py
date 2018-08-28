@@ -114,7 +114,7 @@ def date_to_nth_day(date):
     return (date - new_year_day).days + 1
 
 
-    def assign_sine_vector(day):
+def assign_sine_vector(day):
     '''
     Function will create a sine vector based on the day of the year (d) such that 
     vector = sin((2 * pi * d) / 365
