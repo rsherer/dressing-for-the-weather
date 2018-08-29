@@ -11,13 +11,40 @@ def get_date_and_weather_from_metar(filename):
     
     Output: pandas dataframe
     '''
+    # download raw data
     raw_data = pd.read_csv(filename)
+    
+    # get temperature at 10:53a, as this is right before lunch rush
     mask = raw_data['valid'].apply(lambda x: x[-5:] == '10:53')
     df = raw_data[mask]
-    df.rename(columns=lambda x: x.replace(' ', '_').lower(), inplace=True)
+    
+    # remove spaces from column names, and rename date and temperature columns
+    df.rename(columns=lambda x: x.replace(' ', '').lower(), inplace=True)
     df.rename(columns={'valid':'date', 'tmpf':'temp'}, inplace=True)
+    
+    # create series for the features to be included in modeling
+    # cast temp column to floats
     temp = df['temp'].apply(float)
+    
+    # cast date column to datetime series
     date = pd.to_datetime(df['date']).dt.date
-    df = pd.concat([date, temp], axis=1)
-    df = df.set_index(pd.DatetimeIndex(df['date']))
-    return df['temp']
+
+    # cast p01i to float
+    prec = df['p01i'].apply(float)
+    
+    # convert the sky cover entries into sunny or not sunny
+    sky_coverage = ['skyc1', 'skyc2', 'skyc3', 'skyc4']
+    sky_agg = df[sky_coverage].values.tolist()
+    sky_reduce = [['cloudy' if (('BKN' in element) or ('OVC' in element)) else 'clear'
+                    for element in row] for row in sky_agg]
+    sunny = pd.Series([False if 'cloudy' in row else True for row in sky_reduce])
+    sunny.index = date.index
+
+    # concatenate the series, name the columns
+    cleaned_df = pd.concat([date, temp, sunny], axis=1)
+    cleaned_df['sunny'] = cleaned_df[0]
+    cleaned_df = cleaned_df.drop(columns=[0])
+
+    # make the date time series column the index for join with sales data
+    cleaned_df = cleaned_df.set_index(pd.DatetimeIndex(cleaned_df['date']))
+    return cleaned_df[['temp', 'sunny']]
