@@ -29,9 +29,10 @@ def get_date_and_weather_from_metar(filename):
     # cast date column to datetime series
     date = pd.to_datetime(df['date']).dt.date
 
-    # cast p01i to float
-    prec = df['p01i'].apply(float)
-    
+    # cast values in p01i to float
+    raw_prec = df['p01i'].apply(float)
+    prec = raw_prec.apply(lambda x: True if (x > 0.03) else False)
+
     # convert the sky cover entries into sunny or not sunny
     sky_coverage = ['skyc1', 'skyc2', 'skyc3', 'skyc4']
     sky_agg = df[sky_coverage].values.tolist()
@@ -41,10 +42,9 @@ def get_date_and_weather_from_metar(filename):
     sunny.index = date.index
 
     # concatenate the series, name the columns
-    cleaned_df = pd.concat([date, temp, sunny], axis=1)
-    cleaned_df['sunny'] = cleaned_df[0]
-    cleaned_df = cleaned_df.drop(columns=[0])
+    cleaned_df = pd.concat([date, temp, prec, sunny], axis=1)
+    cleaned_df.columns = ['date', 'temp', 'prec', 'sunny']
 
     # make the date time series column the index for join with sales data
     cleaned_df = cleaned_df.set_index(pd.DatetimeIndex(cleaned_df['date']))
-    return cleaned_df[['temp', 'sunny']]
+    return cleaned_df[['temp', 'prec', 'sunny']]
