@@ -2,6 +2,31 @@ import numpy as numpy
 import pandas as pd
 import datetime
 
+def transform(sales_df, weather_df):
+    # combine the sales and weather dataframes
+    combined_df = sales_df.merge(weather_df, left_index=True, right_index=True)
+    
+    # create the sine and cosine vectors for each day of the year
+    sin_vect = pd.Series(model_data.index).apply(lambda x: assign_sine_vector(x))
+    cos_vect = pd.Series(model_data.index).apply(lambda x: assign_cosine_vector(x))
+    sin_vect.index = days.index
+    cos_vect.index = days.index
+
+    # add sine vector series to the dataframe
+    combo_with_sin_df = pd.concat([combined_df, sin_vect], axis=1)
+    combo_with_sin_df.rename(columns={date: sin_vect}, inplace=True)
+
+    # add cosine vector series to the dataframe
+    combo_with_cos_df = pd.concat([combo_with_sin_df, cos_vect], axis=1)
+    combo_with_cos_df.rename(columns={date: cos_vect}, inplace=True)
+
+    # create dummies out of the days of the week, and add dummies to the dataframe
+    day_of_week = combined_df['day_of_week']
+    days = pd.get_dummies(day_of_week)
+    combo_dummy_days_df = pd.concat([combo_data, days], axis=1)
+    combo_dummy_days_df = combo_dummy_days_df.drop(columns=['day_of_week'], axis=1)
+
+
 def date_to_nth_day(date):
     '''
     Function to convert a datetime day to a number
