@@ -87,7 +87,7 @@ def get_instore_sales_data_by_type(df, sales_type=['instore']):
     return df[['date', 'day_of_week','ordermodename', 'net_sales']]
 
 
-def get_instore_sales_data_by_day(df):
+def get_sales_data_by_day(df):
     '''
     Function to find total in store sales data by day.
     
