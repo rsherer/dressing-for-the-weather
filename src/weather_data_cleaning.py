@@ -30,9 +30,8 @@ def get_date_and_weather_from_metar(filename):
     date = pd.to_datetime(df['date']).dt.date
 
     # cast values in p01i to float
-    raw_prec = df['p01i'].apply(float)
-    prec = raw_prec.apply(lambda x: True if (x > 0.03) else False)
-
+    prec = df['p01i'].apply(float)
+   
     # convert the sky cover entries into sunny or not sunny
     sky_coverage = ['skyc1', 'skyc2', 'skyc3', 'skyc4']
     sky_agg = df[sky_coverage].values.tolist()
