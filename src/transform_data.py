@@ -15,8 +15,8 @@ def transform(sales_df, weather_df):
     combined_df = sales_df.merge(weather_df, left_index=True, right_index=True)
     
     # create the sine and cosine vectors for each day of the year
-    sin_vect = pd.Series(model_data.index).apply(lambda x: assign_sine_vector(x))
-    cos_vect = pd.Series(model_data.index).apply(lambda x: assign_cosine_vector(x))
+    sin_vect = pd.Series(combined_df.index).apply(lambda x: assign_sine_vector(x))
+    cos_vect = pd.Series(combined_df.index).apply(lambda x: assign_cosine_vector(x))
     sin_vect.index = days.index
     cos_vect.index = days.index
 
