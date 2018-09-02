@@ -1,6 +1,7 @@
 import numpy as numpy
 import pandas as pd
 import datetime
+import math
 
 def transform(sales_df, weather_df):
     # combine the sales and weather dataframes
@@ -25,6 +26,8 @@ def transform(sales_df, weather_df):
     days = pd.get_dummies(day_of_week)
     combo_dummy_days_df = pd.concat([combo_data, days], axis=1)
     combo_dummy_days_df = combo_dummy_days_df.drop(columns=['day_of_week'], axis=1)
+
+    # need to add columns for rolling means for trailing 1, 2, 3, and 4 week equivalents
 
 
 def date_to_nth_day(date):
