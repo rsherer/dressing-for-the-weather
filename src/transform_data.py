@@ -4,6 +4,13 @@ import datetime
 import math
 
 def transform(sales_df, weather_df):
+    '''
+    Combines sales date with weather data to fit models and get forecasts and predictions
+
+    Input: Cleaned sales pandas data frame, cleaned weather pandas data frame
+
+    Output: Pandas data frame
+    '''
     # combine the sales and weather dataframes
     combined_df = sales_df.merge(weather_df, left_index=True, right_index=True)
     
