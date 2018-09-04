@@ -100,8 +100,8 @@ def get_sales_data_by_day(df):
     '''
     df = df.resample('D').sum()
     df = df[['net_sales']]
-    return df.drop(df[df['net_sales'] < 200].index, inplace=True)
- 
+    df = df.drop(df[df['net_sales'] < 200].index)
+    return df
 
 def date_to_nth_day(date):
     '''
