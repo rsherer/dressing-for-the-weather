@@ -17,31 +17,31 @@ def transform(sales_df, weather_df):
     # create the sine and cosine vectors for each day of the year
     sin_vect = pd.Series(combined_df.index).apply(lambda x: assign_sine_vector(x))
     cos_vect = pd.Series(combined_df.index).apply(lambda x: assign_cosine_vector(x))
-    sin_vect.index = days.index
-    cos_vect.index = days.index
+    sin_vect.index = combined_df.index
+    cos_vect.index = combined_df.index
 
     # add sine vector series to the dataframe
     combo_with_sin_df = pd.concat([combined_df, sin_vect], axis=1)
-    combo_with_sin_df.rename(columns={date: sin_vect}, inplace=True)
+    combo_with_sin_df.rename(columns={'date': 'sin_vect'}, inplace=True)
 
     # add cosine vector series to the dataframe
     combo_with_cos_df = pd.concat([combo_with_sin_df, cos_vect], axis=1)
-    combo_with_cos_df.rename(columns={date: cos_vect}, inplace=True)
+    combo_with_cos_df.rename(columns={'date': 'cos_vect'}, inplace=True)
 
     # create dummies out of the days of the week, and add dummies to the dataframe
     day_of_week = combined_df['day_of_week']
     days = pd.get_dummies(day_of_week)
-    combo_dummy_days_df = pd.concat([combo_data, days], axis=1)
-    combo_dummy_days_df = combo_dummy_days_df.drop(columns=['day_of_week'], axis=1)
+    combo_dummy_days_df = pd.concat([combo_with_cos_df, days], axis=1)
+    transformed_df = combo_dummy_days_df.drop(columns=['day_of_week'], axis=1)
 
     # need to add columns for rolling means for trailing 1, 2, 3, and 4 week equivalents
-
+    return transformed_df
 
 def date_to_nth_day(date):
     '''
     Function to convert a datetime day to a number
     
-    Input: datetime date
+    Input: datetime date ie datetime(y, m, d)
     
     Output: int
     '''
@@ -50,25 +50,25 @@ def date_to_nth_day(date):
     return (date - new_year_day).days + 1
 
 
-def assign_sine_vector(day):
+def assign_sine_vector(date):
     '''
     Function will create a sine vector based on the day of the year (d) such that 
     vector = sin((2 * pi * d) / 365
     
-    Input: date
+    Input: datetime date ie datetime(y, m, d)
     
     Output: sine vector
     '''
-    return math.sin((2 * math.pi * date_to_nth_day(day)) / 365)
+    return math.sin((2 * math.pi * date_to_nth_day(date)) / 365)
 
 
-def assign_cosine_vector(day):
+def assign_cosine_vector(date):
     '''
     Function will create a cosine vector based on the day of the year (d) such that 
     vector = cos((2 * pi * d) / 365
     
-    Input: date
-    
+    Input: datetime date ie datetime(y, m, d)
+
     Output: cosine vector
     '''
-    return math.cos((2 * math.pi * date_to_nth_day(day)) / 365)
+    return math.cos((2 * math.pi * date_to_nth_day(date)) / 365)
