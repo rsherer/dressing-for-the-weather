@@ -98,10 +98,11 @@ def get_sales_data_by_day(df):
     
     Output: pandas dataframe with type of sales data
     '''
-    df = df.resample('D').sum()
-    df = df[['net_sales']]
-    df = df.drop(df[df['net_sales'] < 200].index)
-    return df
+    sales_df = df.resample('D').sum()
+    sales_df = sales_df[['net_sales']]
+    sales_df = sales_df.drop(sales_df[sales_df['net_sales'] < 200].index)
+    combined_df = sales_df.join(df['day_of_week']).drop_duplicates()
+    return combined_df
 
 def date_to_nth_day(date):
     '''
