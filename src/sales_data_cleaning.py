@@ -99,7 +99,9 @@ def get_sales_data_by_day(df):
     Output: pandas dataframe with type of sales data
     '''
     df = df.resample('D').sum()
-    return df[['net_sales']]
+    df = df[['net_sales']]
+    return df.drop(df[df['net_sales'] < 200].index, inplace=True)
+ 
 
 def date_to_nth_day(date):
     '''
