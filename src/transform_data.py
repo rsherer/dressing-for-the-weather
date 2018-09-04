@@ -34,8 +34,17 @@ def transform(sales_df, weather_df):
     combo_dummy_days_df = pd.concat([combo_with_cos_df, days], axis=1)
     transformed_df = combo_dummy_days_df.drop(columns=['day_of_week'], axis=1)
 
-    # need to add columns for rolling means for trailing 1, 2, 3, and 4 week equivalents
-    return transformed_df
+    # create columns for 5, 10, 15, and 20 day rolling averages to include recent sales
+    # as features
+    wd = combo_with_cos_df['day_of_week'].nunique()
+    transformed_df['rolling_{}'.format(str(wd))] = transformed_df['net_sales'].rolling(wd).mean()
+    transformed_df['rolling_{}'.format(str(2 * wd))] = transformed_df['net_sales'].rolling(2*wd).mean()
+    transformed_df['rolling_{}'.format(str(3 * wd))] = transformed_df['net_sales'].rolling(3*wd).mean()
+    transformed_df['rolling_{}'.format(str(4 * wd))] = transformed_df['net_sales'].rolling(4*wd).mean()
+
+    # drop the rows that have rolling averages with NaNs
+    return transformed_df[(4 * wd - 1):]
+    
 
 def date_to_nth_day(date):
     '''
