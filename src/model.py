@@ -27,7 +27,7 @@ class WeatherDressing():
         scaler = StandardScaler()
         self.X = X
         self.y = y
-        self.X_scaled = scaler.transform(self.X)
+        self.X_scaled = scaler.fit_transform(self.X)
         self.fit_model = self.model.fit(self.X_scaled, self.y)
 
     def predict(self, X):
