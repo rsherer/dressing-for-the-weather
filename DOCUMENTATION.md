@@ -7,15 +7,15 @@ Source code is located in the src folder.
 The file sales_data_cleaning.py has functions to adjust sales data so that it can be combined with weather data to be used for modeling.
 
 The sales file is expected to be a .csv or a .txt file with the following columns:<br/>
-    *'locationid'<br/>
-    *'locationname'<br/>
-    *'date'<br/>
-    *'day_of_week'<br/>
-    *'ordermodename'<br/>
-    *'net_sales'<br/>
-    *'guests'<br/>
-    *'checks'<br/>
-    *'entrees'
+        *'locationid'<br/>
+        *'locationname'<br/>
+        *'date'<br/>
+        *'day_of_week'<br/>
+        *'ordermodename'<br/>
+        *'net_sales'<br/>
+        *'guests'<br/>
+        *'checks'<br/>
+        *'entrees'
 
 -clean_up_dateframe(df) will convert the file to a pandas dataframe that includes sales data for all stores.
 
