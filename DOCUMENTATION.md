@@ -4,6 +4,7 @@
 
 Source code is located in the src folder.
 
+#### Sales Data
 The file sales_data_cleaning.py has functions to adjust sales data so that it can be combined with weather data to be used for modeling.
 
 The sales file is expected to be a .csv or a .txt file with the following columns:<br/><br/>
