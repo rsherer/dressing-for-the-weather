@@ -2,7 +2,7 @@
 
 ### Business Case
 
-Evergreens is a Seattle-based company which runs a series of restaurants that serves salads, predominantly at lunchtime. They suspected that adverse weather conditions acted as a deterrent to potential customers, and were looking for a modeling approach that would provide better guidance for potential changes in sales. Accordingly, they could more efficiently staff their stores with the model output.
+Evergreens is a Seattle-based company which runs a series of restaurants that serves salads, predominantly at lunchtime. They suspected that adverse weather conditions acted as a deterrent to potential customers, and were looking for a modeling approach that would provide better guidance for potential changes in sales. Accordingly, information gain from the model output could aid in more efficient staffing.
 
 
 ### Data
