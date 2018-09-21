@@ -10,7 +10,7 @@ class WeatherDressing():
         '''
         Instatiates the WeatherDressing object.
         '''
-        self.model = GradientBoostingRegressor(**kwargs)
+        self.model = GradientBoostingRegressor(max_depth=3, max_features='log2', min_samples_leaf=4, n_estimators=200)
 
     def fit_transform(self, X, y):
         '''
@@ -18,15 +18,15 @@ class WeatherDressing():
         
         Inputs: 
         _______
-        X: dataframe of features
-\
+        X: dataframe of features\
+        
         Output:
         _______
         None
         '''
-        scaler = StandardScaler()
         self.X = X
         self.y = y
+        scaler = StandardScaler()
         self.X_scaled = scaler.fit_transform(self.X)
         self.fit_model = self.model.fit(self.X_scaled, self.y)
         return self.fit_model
@@ -43,5 +43,12 @@ class WeatherDressing():
         ______
         y: array of predictions
         '''
-        return self.fit_model.predict(X)
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+        return self.fit_model.predict(X_scaled)
+
+    
+    # def scaled(self, X):
+    #     scaler = StandardScaler()
+    #     return scaler.fit_transform(X)
     
