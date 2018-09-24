@@ -9,7 +9,7 @@ Evergreens is a Seattle-based company which runs a series of restaurants that se
 
 Evergreens provided sales data for all their stores from January 2, 2017 through August, 2018. The data that is included in this report as been adjusted so to keep Evergreens sales data private.
 
-Weather data is METAR (METeorological Aerodrome Reports), is a format for reporting weather information. A METAR weather report is predominantly used by pilots in fulfillment of a part of a pre-flight weather briefing, and by meteorologists, who use aggregated METAR information to assist in weather forecasting. Data from this site - https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS - was pulled to be used for historic weather data.
+Weather data is METAR (METeorological Aerodrome Reports), is a format for reporting weather information. A METAR weather report is predominantly used by pilots in fulfillment of a part of a pre-flight weather briefing, and by meteorologists, who use aggregated METAR information to assist in weather forecasting. Data from this site - https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS - was pulled to be used for historic weather data. The following choices were used: Network: Washington ASOS, 1) BFS (Seattle/Boeing Field), 2) All Available data, 3) Specific Date Range: 1/1/18 through 8/13/18, 4) Timezone: America/Los Angeles (WST/WDT), 5) Data Format: Comma delimited, 6) MADIS HFMETAR, 7) Download the data.
 
 
 ### Methodology
