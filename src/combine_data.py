@@ -40,7 +40,7 @@ def combine_data(sales_df, weather_df):
     transformed_df['rolling_{}'.format(str(2 * wd))] = transformed_df['net_sales'].rolling(2*wd).mean()
     
     # drop the rows that have rolling averages with NaNs
-    return transformed_df[(4 * wd - 1):]
+    return transformed_df[(2 * wd - 1):]
 
 
 def date_to_nth_day(date):
