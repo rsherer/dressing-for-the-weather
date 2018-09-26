@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime
+import math
 
 
 def clean_up_dataframe(df):
@@ -63,7 +64,7 @@ def store_filter(df, store=1):
     
     Output: pandas dataframe of sales data from just a specific store
     '''
-    mask = df['locationid'].apply(lambda x: x == store)
+    mask = df['locationid'].apply(lambda x: x == [store])
     return df[mask]
 
 
