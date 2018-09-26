@@ -1,4 +1,4 @@
-import numpy as numpy
+c import numpy as numpy
 import pandas as pd
 import datetime
 import math
@@ -37,11 +37,8 @@ def combine_data(sales_df, weather_df):
     # create columns for 5, 10, 15, and 20 day rolling averages to include recent sales
     # as features
     wd = combo_with_cos_df['day_of_week'].nunique()
-    transformed_df['rolling_{}'.format(str(wd))] = transformed_df['net_sales'].rolling(wd).mean()
     transformed_df['rolling_{}'.format(str(2 * wd))] = transformed_df['net_sales'].rolling(2*wd).mean()
-    transformed_df['rolling_{}'.format(str(3 * wd))] = transformed_df['net_sales'].rolling(3*wd).mean()
-    transformed_df['rolling_{}'.format(str(4 * wd))] = transformed_df['net_sales'].rolling(4*wd).mean()
-
+    
     # drop the rows that have rolling averages with NaNs
     return transformed_df[(4 * wd - 1):]
 
