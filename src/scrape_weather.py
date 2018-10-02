@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-from datetime import date, timedelta
+from datetime import date, datime, timedelta
+from dateutil.parser import parse
 
 def get_raw_forecasts(day):
     '''
@@ -27,3 +28,20 @@ def get_raw_forecasts(day):
         predictions = page_content.find_all('td')[i].text
         web_predictions.append(predictions)
     return web_predictions[(day*7 - 6):(day*7)]
+
+
+def get_day_of_week_and_date(string):
+    '''
+    Convert a string scraped from weather.com and convert it into a day of
+    week and datetime date.
+
+    Input: string
+
+    Output: tuple of strings
+    '''
+    day_of_week = string[:3]
+    if string[3:4] != '\n':
+        day = string[3:]
+    else:
+        day = string[4:]
+    return day_of_week, date
