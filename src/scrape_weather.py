@@ -45,3 +45,21 @@ def get_day_of_week_and_date(string):
     else:
         day = string[4:]
     return day_of_week, date
+
+
+def get_hi_temperature(string):
+    '''
+    Take the hi/lo string from weather.com and convert to an integer of the hi.
+
+    Input: string
+
+    Output: int
+    '''
+    numbers = str([num for num in range(0,10)])
+    temp = ''
+    for char in string:
+        if char in numbers:
+            temp += char
+        else:
+            break
+    return int(temp)
