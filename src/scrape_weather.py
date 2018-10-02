@@ -81,8 +81,8 @@ def get_low_temperature(string):
     for char in reversed(string[:-1]):
         if char in numbers:
             temp = char + temp
+        elif char == '-':
+            raise ValueError('Negative temperatures - too cold!')
         else:
             break
-    if string[0] == '-':
-        raise ValueError('Negative temperatures - too cold!')
     return int(temp)
