@@ -39,7 +39,7 @@ def get_day_of_week(string):
 
     Output: string
     '''
-    day_of_week = string[:3]
+    day_of_week = string[0][:3]
     return day_of_week
 
 
