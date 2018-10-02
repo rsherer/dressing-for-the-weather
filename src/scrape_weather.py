@@ -101,3 +101,19 @@ def precipitation(string):
         return True
     else:
         return False
+
+
+def sunny(string):
+    '''
+    Convert string scraped from weather.com to True or False depending on sunny or not.
+    Sunny is considered if the forecast is Sunny, mostly Sunny, or Partly Cloudy
+    
+    Input: string
+    
+    Output: boolean
+    '''
+    sunny_lst = ['Sunny'.lower(), 'Mostly Sunny'.lower(), 'Partly Cloudy'.lower()]
+    if string.lower() in sunny_lst:
+        return True
+    else:
+        return False
