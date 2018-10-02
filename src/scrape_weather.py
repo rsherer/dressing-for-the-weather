@@ -44,7 +44,7 @@ def get_day_of_week_and_date(string):
         day = string[3:]
     else:
         day = string[4:]
-    return day_of_week, date
+    return day_of_week, parse(date)
 
 
 def get_hi_temperature(string):
