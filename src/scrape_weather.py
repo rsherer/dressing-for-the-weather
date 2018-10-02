@@ -86,3 +86,18 @@ def get_low_temperature(string):
         else:
             break
     return int(temp)
+
+
+def precipitation(string):
+    '''
+    Convert string scraped from weather.com to True or False if precipitation that day
+
+    Input: string
+
+    Output: boolean
+    '''
+    prec = int(string[:-1])
+    if prec >= 40:
+        return True
+    else:
+        return False
