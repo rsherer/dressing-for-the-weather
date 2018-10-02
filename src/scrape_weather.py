@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-from datetime import date, datime, timedelta
+from datetime import date, datetime, timedelta
 from dateutil.parser import parse
 
 def get_raw_forecasts(day):
@@ -49,7 +49,8 @@ def get_day_of_week_and_date(string):
 
 def get_hi_temperature(string):
     '''
-    Take the hi/lo string from weather.com and convert to an integer of the hi.
+    Take the hi/lo string from weather.com and convert to an integer of the
+    hi temperature.
 
     Input: string
 
@@ -62,4 +63,26 @@ def get_hi_temperature(string):
             temp += char
         else:
             break
+    return int(temp)
+
+
+def get_low_temperature(string):
+    '''
+    Take the hi/lo string from weather.com and convert to an integer of the
+    low temperature.
+
+    Input: string
+
+    Output: int
+    '''
+    
+    numbers = [str(num) for num in range(0,10)]
+    temp = ''
+    for char in reversed(string[:-1]):
+        if char in numbers:
+            temp = char + temp
+        else:
+            break
+    if string[0] == '-':
+        raise ValueError('Negative temperatures - too cold!')
     return int(temp)
