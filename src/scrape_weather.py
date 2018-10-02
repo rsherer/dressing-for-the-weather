@@ -30,21 +30,32 @@ def get_raw_forecasts(day):
     return web_predictions[(day*7 - 6):(day*7)]
 
 
-def get_day_of_week_and_date(string):
+def get_day_of_week(string):
     '''
     Convert a string scraped from weather.com and convert it into a day of
-    week and datetime date.
+    week.
 
     Input: string
 
-    Output: tuple of strings
+    Output: string
     '''
     day_of_week = string[:3]
+    return day_of_week
+
+
+def get_date(string):
+    '''
+    Convert a string scraped from weather.com and convert it into a datetime date.
+
+    Input: string
+
+    Output: datetime date
+    '''
     if string[3:4] != '\n':
-        day = string[3:]
+        date = string[3:]
     else:
-        day = string[4:]
-    return day_of_week, parse(date)
+        date = string[4:]
+    return parse(date)
 
 
 def get_hi_temperature(string):
