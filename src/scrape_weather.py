@@ -128,3 +128,42 @@ def sunny(string):
         return True
     else:
         return False
+
+
+def check_day_of_week(day, dow='Fri'):
+    '''
+    Function to get a 1 for a matching day of week, and zero otherwise.
+    
+    Inputs: str, str
+    
+    Output: int
+    '''
+    if day == dow:
+        return 1
+    else:
+        return 0
+        
+        
+def make_weather_dressing_prediction_components(day_scrape: list):
+    '''
+    Aggregate all forecast components necessary for the array that is used for the predict
+    function in the WeatherDressing. The list of strings that is scraped from 
+    get_raw_forecasts() is the list of strings that should be used for day_scrape.
+    
+    Input: list
+    
+    Output: list
+    '''
+    pred = [get_hi_temperature(day_scrape[2]),
+           precipitation(day_scrape[3]),
+           sunny(day_scrape[1]),
+           assign_sine_vector(get_date(day_scrape[0])),
+           assign_cosine_vector(get_date(day_scrape[0])),
+           check_day_of_week(get_day_of_week(day_scrape), 'Fri'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Mon'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Thu'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Tue'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Sat'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Sun'),
+           check_day_of_week(get_day_of_week(day_scrape), 'Wed')]
+    return pred
