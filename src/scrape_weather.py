@@ -8,6 +8,7 @@ from dateutil.parser import parse
 def get_raw_forecasts(day):
     '''
     Get raw text from weather.com's 10 day forecast, for the day passed into the function.
+    Day = 1 will be today.
     
     Input: int
     Day between 1 and 15, representing the day of the desired forecast.
