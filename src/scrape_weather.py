@@ -31,7 +31,7 @@ def get_raw_forecasts(day):
     return web_predictions[(day*7 - 6):(day*7)]
 
 
-def get_day_of_week(string):
+def get_day_of_week(forecast_list):
     '''
     Convert a string scraped from weather.com and convert it into a day of
     week.
@@ -40,11 +40,11 @@ def get_day_of_week(string):
 
     Output: string
     '''
-    day_of_week = string[0][:3]
+    day_of_week = forecast_list[0][:3]
     return day_of_week
 
 
-def get_date(string):
+def get_date(forecast_list):
     '''
     Convert a string scraped from weather.com and convert it into a datetime date.
 
@@ -52,33 +52,32 @@ def get_date(string):
 
     Output: datetime date
     '''
-    if string[3:4] != '\n':
-        date = string[3:]
+    datestring = forecast_list[0]
+    if datestring[3:4] != '\n':
+        date = datestring[3:]
     else:
-        date = string[4:]
+        date = datestring[4:]
     return parse(date)
 
 
-def get_hi_temperature(string):
+def get_hi_temperature(forecast_list):
     '''
-    Take the hi/lo string from weather.com and convert to an integer of the
-    hi temperature.
+    Take the hi/lo string from weather.com and convert to an integer of the hi.
 
     Input: string
 
     Output: int
     '''
-    numbers = str([num for num in range(0,10)])
+    numbers = [str(num) for num in range(0,10)]
     temp = ''
-    for char in string:
+    for char in forecast_list[2]:
         if char in numbers:
             temp += char
         else:
             break
     return int(temp)
 
-
-def get_low_temperature(string):
+def get_low_temperature(forecast_list):
     '''
     Take the hi/lo string from weather.com and convert to an integer of the
     low temperature.
@@ -87,10 +86,10 @@ def get_low_temperature(string):
 
     Output: int
     '''
-    
     numbers = [str(num) for num in range(0,10)]
     temp = ''
-    for char in reversed(string[:-1]):
+    hilo = forecast_list[2]
+    for char in reversed(hilo[:-1]):
         if char in numbers:
             temp = char + temp
         elif char == '-':
@@ -100,7 +99,7 @@ def get_low_temperature(string):
     return int(temp)
 
 
-def precipitation(string):
+def precipitation(forecast_list):
     '''
     Convert string scraped from weather.com to True or False if precipitation that day
 
@@ -108,14 +107,14 @@ def precipitation(string):
 
     Output: boolean
     '''
-    prec = int(string[:-1])
+    prec = int(forecast_list[3][:-1])
     if prec >= 40:
         return True
     else:
         return False
 
 
-def sunny(string):
+def sunny(forecast_list):
     '''
     Convert string scraped from weather.com to True or False depending on sunny or not.
     Sunny is considered if the forecast is Sunny, mostly Sunny, or Partly Cloudy
@@ -124,8 +123,9 @@ def sunny(string):
     
     Output: boolean
     '''
+    sunny = forecast_list[1]
     sunny_lst = ['Sunny'.lower(), 'Mostly Sunny'.lower(), 'Partly Cloudy'.lower()]
-    if string.lower() in sunny_lst:
+    if sunny.lower() in sunny_lst:
         return True
     else:
         return False
