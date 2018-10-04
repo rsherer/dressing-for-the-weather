@@ -39,28 +39,28 @@ def clean_up_dataframe(df):
                'net_sales']]
 
 
-def store_filter(df, store=1):
+def store_filter(df, store=1]:
     '''
     Function to pull sales data for a specific store
     
     Input Parameters
     ----------------
     df: pandas dataframe
-        pandas dataframe converted from csv with Sales, Guests, Checks,
-        Entrees by day
+        pandas dataframe converted from csv with Sales, Guests, Checks, Entrees by day
+    
+    store: int  
+        Between 1 and 10, corresponding to a specific store as listed below:
 
-    store: int, default to Marion store, id 1
-        Specific store name from following list of choices: 
-
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 111] 
-        
-        which corresponds to:
-        
-        ['WA-001 3rd and Marion', 'WA-002 6th and Olive',
-       'WA-003 U-Village', 'WA-004 Lenora-6th', 'WA-005 Thomas-Boren',
-       'WA-006 Fremont', 'WA-007 - Bellevue City Center',
-       'WA 008 - One Union', 'WA-009 Pioneer Square', 'WA-10 INTNL',
-       'WA-Commissary']
+        ['WA-001 3rd and Marion',
+        'WA-002 6th and Olive',
+        'WA-003 U-Village',
+        'WA-004 Lenora-6th',
+        'WA-005 Thomas-Boren',
+        'WA-006 Fremont',
+        'WA-007 - Bellevue City Center',
+        'WA 008 - One Union',
+        'WA-009 Pioneer Square',
+        'WA-10 INTNL']
     
     Output: pandas dataframe of sales data from just a specific store
     '''
