@@ -4,6 +4,10 @@ import datetime
 import math
 
 
+store_dct = {1: 'Marion', 2: 'Olive', 3: 'U-Village', 4: 'Lenora',
+             5: 'Thomas-Boren', 6: 'Fremont', 7: 'Bellevue City Center',
+             8: 'One Union', 9: 'Pioneer Square', 10: 'INTNL'}
+
 def clean_up_dataframe(df):
     '''
     Function to clean up dataframe from csv
