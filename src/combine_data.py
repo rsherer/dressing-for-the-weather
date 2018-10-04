@@ -1,4 +1,4 @@
-c import numpy as numpy
+import numpy as numpy
 import pandas as pd
 import datetime
 import math
