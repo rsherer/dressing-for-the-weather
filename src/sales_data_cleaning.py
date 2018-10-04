@@ -39,7 +39,7 @@ def clean_up_dataframe(df):
                'net_sales']]
 
 
-def store_filter(df, store=1]:
+def store_filter(df, store=1):
     '''
     Function to pull sales data for a specific store
     
