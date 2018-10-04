@@ -18,7 +18,7 @@ def get_raw_forecasts(day):
         [daymonth date, weather forecast, hi/lo temp, % chance precipitation, 
          wind speed and direction, humidity]
     '''
-    if day > 15:
+    if day > 15 or type(day) != int or day <= 0:
         raise ValueError('the variable day must be an integer between 1 and 15')
     page_link = 'https://weather.com/weather/tenday/l/USWA0396:1:US'
     page_response = requests.get(page_link, timeout=5)
