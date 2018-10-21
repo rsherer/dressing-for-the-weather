@@ -10,7 +10,7 @@ class WeatherDressing():
         '''
         Instatiates the WeatherDressing object.
         '''
-        self.model = GradientBoostingRegressor(max_depth=3, max_features='log2', min_samples_leaf=4, n_estimators=200)
+        self.model = GradientBoostingRegressor(max_depth=3, max_features='log2', min_samples_leaf=4, n_estimators=300)
 
     def fit_transform(self, X, y):
         '''
