@@ -5,8 +5,9 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.preprocessing import StandardScaler
 
-class WeatherDressing():
-    def __init__(self, **kwargs):
+
+class WeatherDressing:
+    def __init__(self):
         '''
         Instatiates the WeatherDressing object.
         '''
@@ -18,7 +19,7 @@ class WeatherDressing():
         
         Inputs: 
         _______
-        X: dataframe of features\
+        X: dataframe of features
         
         Output:
         _______
